@@ -1,0 +1,27 @@
+logging:
+  config: classpath:logback-spring-local.xml
+spring:
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  datasource:
+    primary-master:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://47.106.135.182:3307/order?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: lk123
+    primary-slave:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://47.106.135.182:3308/order?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: lk123
+    business-master:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://47.106.135.182:3307/item?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: lk123
+    business-slave:
+      driver-class-name: com.mysql.jdbc.Driver
+      jdbc-url: jdbc:mysql://47.106.135.182:3308/item?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: lk123

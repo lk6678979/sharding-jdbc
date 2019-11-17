@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sziov.common.sharding.multidatasource.sdao.ItemDao">
+    <update id="createIfNotExistsTable">
+CREATE TABLE IF NOT EXISTS t_order (item_id BIGINT AUTO_INCREMENT,order_id BIGINT, user_id INT NOT NULL, pro_name VARCHAR(50),price VARCHAR(50),PRIMARY KEY (item_id));
+    </update>
+
+    <update id="truncateTable">
+        TRUNCATE TABLE t_item;
+    </update>
+
+    <update id="dropTable">
+        DROP TABLE IF EXISTS t_item;
+    </update>
+    <update id="update">
+        UPDATE t_item set
+        order_id = #{orderId,jdbcType=INTEGER},
+        user_id = #{userId,jdbcType=INTEGER},
+        pro_name = #{proName,jdbcType=VARCHAR},
+        price = #{price,jdbcType=VARCHAR}
+     where item_id = #{itemId}
+    </update>
+    <select id="selectById" resultType="com.sziov.common.sharding.multidatasource.entity.po.ItemPo">
+        select order_id as orderId,item_id as itemId,pro_name as proName,price,user_id as userId from t_item where item_id = #{itemId}
+    </select>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="itemId" parameterType="com.sziov.common.sharding.multidatasource.entity.po.ItemPo">
+        INSERT INTO t_item (
+          order_id,user_id, pro_name,price
+        )
+        VALUES (
+        #{orderId,jdbcType=INTEGER},
+        #{userId,jdbcType=INTEGER},
+        #{proName,jdbcType=VARCHAR},
+        #{price,jdbcType=VARCHAR}
+        )
+    </insert>
+
+    <delete id="delete">
+        DELETE FROM t_item WHERE order_id = #{orderId,jdbcType=INTEGER}
+    </delete>
+</mapper>
